@@ -36,6 +36,7 @@ dsh web（127.0.0.1:3080，官方进程，保持回环绑定不变）
 
 - GitHub Pages 展示页：<https://rs-lxy.github.io/dsh-remote-123/>
 - 小红书配图源文件：`assets/posters/poster-*.png`（生成器：`tools/make-posters.py`）
+- 小红书文案与发布建议：[docs/xiaohongshu-post.md](docs/xiaohongshu-post.md)
 
 <p align="center">
   <img src="assets/posters/poster-1-hero.png" width="32%" alt="hero">
