@@ -1,0 +1,12 @@
+{
+  "name": "dsh-remote-gateway",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Zero-dependency login gateway + PWA shell for DeepSeek Harness remote access",
+  "scripts": {
+    "start": "node gateway.mjs",
+    "icons": "node ../tools/make-icons.mjs"
+  },
+  "license": "MIT"
+}

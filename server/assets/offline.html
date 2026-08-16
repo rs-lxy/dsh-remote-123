@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4176E6">
+<title>DSH Remote · 离线</title>
+<style>
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: #151517; color: #f9fafb; text-align: center; padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
+  }
+  .box { max-width: 320px; }
+  .mark { font-size: 44px; }
+  h1 { font-size: 18px; margin: 12px 0 8px; }
+  p { font-size: 14px; line-height: 1.7; color: #adaeb2; margin: 0 0 18px; }
+  button {
+    height: 44px; padding: 0 20px; border: none; border-radius: 10px;
+    background: #4176E6; color: #fff; font-size: 15px; font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="mark">📡</div>
+    <h1>暂时连不上电脑</h1>
+    <p>请确认电脑已开机、dsh web 与 dsh-remote 网关在运行，并检查手机网络（Tailscale 模式需保持 VPN 连接）。</p>
+    <button onclick="location.reload()">重新连接</button>
+  </div>
+</body>
+</html>

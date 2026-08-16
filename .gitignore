@@ -1,0 +1,19 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Local credentials / deployment state (never commit)
+*.auth
+dsh-remote-url.txt
+dsh-remote-fixed-url.txt
+cookies.txt
+
+# Runtime artifacts
+logs/
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Large downloaded binary (re-download with scripts/install-cloudflared.ps1)
+tools/bin/cloudflared.exe

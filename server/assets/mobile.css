@@ -1,0 +1,92 @@
+/* dsh-remote 移动端兜底适配（mobile-fit 插件之外的保守增强）
+   选择器按 [class$="_xxx"] 语义后缀匹配，抗 CSS Modules 哈希变化。
+   数值与布局风格参考 joyfish666/deepseek-harness-remote (MIT) 与
+   hongshuxifan321/dsh-mobile-app 的移动端适配思路。 */
+@media (max-width: 820px) {
+  html, body {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* 输入字体 ≥16px，防止 iOS Safari 聚焦自动放大页面 */
+  input, textarea, select, [contenteditable="true"] {
+    font-size: 16px !important;
+  }
+
+  /* 触控目标至少 44px */
+  [class$="_iconButton"],
+  [class$="_action"],
+  [class$="_toggle"] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* 消息/摘要/面包屑长内容强制换行，代码块保留横向滚动 */
+  [class$="_scrollBody"] [class$="_text"],
+  [class$="_scrollBody"] [class$="_body"],
+  [class$="_scrollBody"] [class$="_summary"],
+  [class$="_scrollBody"] [class*="_text_"],
+  [class$="_scrollBody"] [class*="_summary_"],
+  [class*="_crumb"] {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    min-width: 0 !important;
+  }
+  [class$="_scrollBody"] pre,
+  [class$="_scrollBody"] code {
+    white-space: pre !important;
+    overflow-x: auto !important;
+    max-width: 100% !important;
+  }
+  [class$="_scrollBody"] .katex-display,
+  [class$="_scrollBody"] .katex {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    max-width: 100% !important;
+  }
+
+  /* 会话统计/元信息行：单行 + 横向滚动，保证完整可读 */
+  [data-slot="conversation.composer.dock"] div[class$="_root"],
+  [class$="_scrollBody"] [class*="_actions"],
+  [class*="_crumbs"] {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    overscroll-behavior-x: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  [data-slot="conversation.composer.dock"] div[class$="_root"]::-webkit-scrollbar,
+  [class$="_scrollBody"] [class*="_actions"]::-webkit-scrollbar,
+  [class*="_crumbs"]::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* 底部 dock 给 iPhone 手势条让位 */
+  [class$="_dock"] {
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* 顶部内容避开刘海 */
+  [class$="_topbar"],
+  [class$="_headerRow"],
+  [class$="_conversationHeader"] {
+    padding-top: max(0px, env(safe-area-inset-top, 0px)) !important;
+  }
+
+  /* 输入区更贴手 */
+  [class$="_editor"],
+  [class$="_composerSeat"] textarea,
+  [class$="_composerSeat"] [contenteditable="true"] {
+    border-radius: 22px !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    min-height: 42px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 触屏没有 hover，纯提示 tooltip 常驻会挡内容 */
+  [role="tooltip"] {
+    display: none !important;
+  }
+}
