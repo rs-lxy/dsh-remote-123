@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="620" viewBox="0 0 1400 620">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#101116"/>
+      <stop offset="1" stop-color="#1a2130"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4176e6"/>
+      <stop offset="1" stop-color="#679efe"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#679efe"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="620" fill="url(#bg)"/>
+
+  <!-- devices -->
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif">
+    <rect x="40" y="80" width="240" height="100" rx="18" fill="#1c1e26" stroke="#31405e"/>
+    <text x="160" y="122" text-anchor="middle" font-size="28" fill="#f6f7f9">📱 iPhone PWA</text>
+    <text x="160" y="158" text-anchor="middle" font-size="20" fill="#8f96a3">添加到主屏幕</text>
+
+    <rect x="40" y="210" width="240" height="100" rx="18" fill="#1c1e26" stroke="#31405e"/>
+    <text x="160" y="252" text-anchor="middle" font-size="28" fill="#f6f7f9">📟 iPad PWA</text>
+    <text x="160" y="288" text-anchor="middle" font-size="20" fill="#8f96a3">独立全屏 App</text>
+
+    <rect x="40" y="340" width="240" height="100" rx="18" fill="#1c1e26" stroke="#31405e"/>
+    <text x="160" y="382" text-anchor="middle" font-size="28" fill="#f6f7f9">🤖 Android APK</text>
+    <text x="160" y="418" text-anchor="middle" font-size="20" fill="#8f96a3">WebView 壳</text>
+
+    <path d="M280 155 C 330 155 330 260 355 260" stroke="#679efe" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+    <path d="M280 260 L 355 260" stroke="#679efe" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+    <path d="M280 390 C 330 390 330 260 355 260" stroke="#679efe" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- tunnel -->
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif">
+    <rect x="360" y="170" width="330" height="180" rx="20" fill="#13233f" stroke="#2f5be7"/>
+    <text x="525" y="218" text-anchor="middle" font-size="30" font-weight="700" fill="#f6f7f9">HTTPS 外网入口</text>
+    <text x="525" y="262" text-anchor="middle" font-size="21" fill="#b6bac2">花生壳固定域名</text>
+    <text x="525" y="296" text-anchor="middle" font-size="21" fill="#b6bac2">localhost.run / Cloudflare / Tailscale</text>
+    <text x="525" y="334" text-anchor="middle" font-size="19" fill="#4ade80">公网 → 本机 8082</text>
+    <path d="M690 260 L 795 260" stroke="#679efe" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- gateway -->
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif">
+    <rect x="800" y="130" width="350" height="260" rx="20" fill="#152238" stroke="#4176e6"/>
+    <text x="975" y="176" text-anchor="middle" font-size="30" font-weight="700" fill="#f6f7f9">DSH Remote 网关</text>
+    <text x="975" y="212" text-anchor="middle" font-size="20" fill="#8f96a3">127.0.0.1:8082 · 只绑回环</text>
+    <text x="975" y="254" text-anchor="middle" font-size="21" fill="#b6bac2">口令登录 · Basic Auth · 限速</text>
+    <text x="975" y="288" text-anchor="middle" font-size="21" fill="#b6bac2">PWA 注入 · Host 改写 · WS 代理</text>
+    <text x="975" y="322" text-anchor="middle" font-size="21" fill="#b6bac2">大 JSON 自动 gzip</text>
+    <text x="975" y="358" text-anchor="middle" font-size="19" fill="#4ade80">唯一认证边界</text>
+    <path d="M1150 260 L 1255 260" stroke="#679efe" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- dsh -->
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif">
+    <rect x="1260" y="170" width="100" height="180" rx="20" fill="#1c1e26" stroke="#31405e"/>
+    <text x="1310" y="214" text-anchor="middle" font-size="26" font-weight="700" fill="#f6f7f9">dsh web</text>
+    <text x="1310" y="252" text-anchor="middle" font-size="19" fill="#8f96a3">127.0.0.1</text>
+    <text x="1310" y="282" text-anchor="middle" font-size="19" fill="#8f96a3">:3080</text>
+    <text x="1310" y="318" text-anchor="middle" font-size="19" fill="#4ade80">官方进程</text>
+  </g>
+
+  <text x="700" y="580" text-anchor="middle" font-size="24" fill="#8f96a3" font-family="PingFang SC, Microsoft YaHei, sans-serif">手机看到的界面 = 电脑上正在运行的同一个 dsh web 实例</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="420" viewBox="0 0 1600 420">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1013"/>
+      <stop offset="0.55" stop-color="#1b2740"/>
+      <stop offset="1" stop-color="#102a4c"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4d7cfe"/>
+      <stop offset="1" stop-color="#2f5be7"/>
+    </linearGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="420" fill="url(#bg)"/>
+  <circle cx="1350" cy="80" r="180" fill="#4176e6" opacity="0.16" filter="url(#soft)"/>
+  <circle cx="220" cy="360" r="150" fill="#679efe" opacity="0.12" filter="url(#soft)"/>
+
+  <rect x="90" y="78" width="96" height="96" rx="26" fill="url(#brand)"/>
+  <text x="138" y="146" text-anchor="middle" font-size="52" fill="#ffffff" font-family="PingFang SC, Microsoft YaHei, sans-serif">⌁</text>
+
+  <text x="218" y="118" font-size="54" font-weight="700" fill="#f6f7f9" font-family="PingFang SC, Microsoft YaHei, sans-serif">DSH Remote</text>
+  <text x="218" y="162" font-size="30" fill="#b6bac2" font-family="PingFang SC, Microsoft YaHei, sans-serif">随时随地远程控制电脑上的 DeepSeek Harness</text>
+
+  <g font-size="26" fill="#d6e0ff" font-family="PingFang SC, Microsoft YaHei, sans-serif">
+    <rect x="92" y="228" width="250" height="62" rx="31" fill="#1c1e26" stroke="#2e3650"/>
+    <text x="217" y="268" text-anchor="middle">📱 iPhone PWA</text>
+    <rect x="372" y="228" width="250" height="62" rx="31" fill="#1c1e26" stroke="#2e3650"/>
+    <text x="497" y="268" text-anchor="middle">📟 iPad PWA</text>
+    <rect x="652" y="228" width="270" height="62" rx="31" fill="#1c1e26" stroke="#2e3650"/>
+    <text x="787" y="268" text-anchor="middle">🤖 Android APK</text>
+    <rect x="952" y="228" width="330" height="62" rx="31" fill="#1c1e26" stroke="#2e3650"/>
+    <text x="1117" y="268" text-anchor="middle">🔒 登录网关 + HTTPS 外网</text>
+  </g>
+
+  <text x="92" y="368" font-size="28" fill="#8f96a3" font-family="PingFang SC, Microsoft YaHei, sans-serif">免签名 · 免 VPN · 免公网 IP · 三端与电脑实时同步 · gzip 慢链路加速</text>
+</svg>
