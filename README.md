@@ -32,6 +32,17 @@ dsh web（127.0.0.1:3080，官方进程，保持回环绑定不变）
 设计原因：dsh 官方**拒绝绑定 0.0.0.0**（防止把可执行命令接口暴露到网络），且 `trustedHosts`
 官方明确说**不是认证层**。因此本项目把认证放在独立网关上，dsh 永远只绑回环，外网只通过 HTTPS 隧道到达网关。
 
+## 展示页与海报
+
+- GitHub Pages 展示页：<https://rs-lxy.github.io/dsh-remote-123/>
+- 小红书配图源文件：`assets/posters/poster-*.png`（生成器：`tools/make-posters.py`）
+
+<p align="center">
+  <img src="assets/posters/poster-1-hero.png" width="32%" alt="hero">
+  <img src="assets/posters/poster-2-architecture.png" width="32%" alt="architecture">
+  <img src="assets/posters/poster-3-quickstart.png" width="32%" alt="quickstart">
+</p>
+
 ## 目录结构
 
 ```

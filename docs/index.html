@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSH Remote — iPhone / iPad / Android 远程控制 DeepSeek Harness</title>
+<meta name="description" content="用 iPhone、iPad 或安卓随时随地远程控制电脑上的 DeepSeek Harness。PWA + 登录网关 + 花生壳/Cloudflare/Tailscale，免签名免 VPN。">
+<meta name="theme-color" content="#4176E6">
+<style>
+  :root {
+    --bg:#0f1013; --bg2:#171920; --card:#1c1e26; --border:rgba(255,255,255,.10);
+    --text:#f6f7f9; --sub:#b6bac2; --brand:#4176e6; --brand2:#679efe; --green:#4ade80;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:radial-gradient(1200px 600px at 20% -10%, #1b2a4a 0%, var(--bg) 55%); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; line-height:1.7; }
+  a { color:var(--brand2); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .wrap { max-width:1080px; margin:0 auto; padding:48px 22px 80px; }
+  .hero { text-align:center; padding:36px 0 10px; }
+  .logo { width:96px; height:96px; border-radius:26px; background:linear-gradient(135deg,#4d7cfe,#2f5be7);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 18px; font-size:42px; color:#fff; box-shadow:0 12px 40px rgba(65,118,230,.35); }
+  h1 { font-size:44px; margin:10px 0 8px; letter-spacing:.5px; }
+  .subtitle { color:var(--sub); font-size:20px; max-width:720px; margin:0 auto 22px; }
+  .badges { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  .badge { background:var(--card); border:1px solid var(--border); border-radius:999px; padding:6px 14px; font-size:14px; color:var(--sub); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:36px 0; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; }
+  .card h3 { margin:0 0 8px; font-size:18px; }
+  .card p { margin:0; color:var(--sub); font-size:14px; }
+  .ok { color:var(--green); }
+  .posters { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; margin:28px 0; }
+  .posters img { width:100%; height:auto; border-radius:14px; border:1px solid var(--border); background:var(--card); }
+  pre { background:#11131a; border:1px solid var(--border); border-radius:14px; padding:18px; overflow:auto; font-size:13.5px; }
+  code { font-family:ui-monospace,Consolas,monospace; }
+  .steps li { margin:10px 0; color:var(--sub); }
+  .footer { text-align:center; color:var(--sub); font-size:13px; margin-top:50px; }
+  @media (max-width:640px){ h1{font-size:32px} .subtitle{font-size:17px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="logo">⌁</div>
+    <h1>DSH Remote</h1>
+    <p class="subtitle">用 iPhone · iPad · 安卓随时随地远程控制电脑上的 <strong>DeepSeek Harness</strong>，与电脑端实时同步。免签名、免 VPN、免公网 IP。</p>
+    <div class="badges">
+      <span class="badge">iPhone PWA</span><span class="badge">iPad PWA</span><span class="badge">Android APK</span>
+      <span class="badge">登录网关</span><span class="badge">花生壳固定域名</span><span class="badge">gzip 加速</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card"><h3>📲 iOS / iPadOS</h3><p>Safari「添加到主屏幕」变成独立全屏 App，无需签名 / TestFlight。审批弹窗与实时事件原生可用。</p></div>
+    <div class="card"><h3>🤖 Android</h3><p>内置两个现成 WebView 壳 APK，填地址 + 口令即连；密码经 Keystore 加密保存。</p></div>
+    <div class="card"><h3>🌐 出门可用</h3><p>花生壳固定 HTTPS 域名 / localhost.run / Cloudflare Tunnel / Tailscale 任选，手机不用装 VPN。</p></div>
+    <div class="card"><h3>🔐 安全边界</h3><p>口令登录 + HttpOnly cookie + 登录限速；dsh 始终只绑 127.0.0.1，公网只能过 HTTPS 网关。</p></div>
+    <div class="card"><h3>⚡ 慢链路优化</h3><p>会话历史自动 gzip：实测 4.45MB → 0.35MB，27.6s → 1.4s，1Mbps 免费隧道也流畅。</p></div>
+    <div class="card"><h3>🧩 移动端 UI</h3><p>集成 @dsh/mobile-adapt：单列布局、全屏抽屉、全屏设置/详情、输入栏换行。</p></div>
+  </div>
+
+  <h2>🖼 海报</h2>
+  <div class="posters">
+    <img src="../../assets/posters/poster-1-hero.png" alt="DSH Remote hero">
+    <img src="../../assets/posters/poster-2-architecture.png" alt="架构">
+    <img src="../../assets/posters/poster-3-quickstart.png" alt="三步上手">
+  </div>
+
+  <h2>🚀 快速开始</h2>
+  <pre><code>git clone https://github.com/rs-lxy/dsh-remote-123.git
+cd dsh-remote-123
+# 1. 确保电脑已运行: npx @deepseek-ai/dsh web
+# 2. 启动登录网关
+powershell -NoProfile -ExecutionPolicy Bypass -File server\scripts\start-gateway.ps1
+# 3. 开一条外网通道（免注册推荐）
+powershell -NoProfile -ExecutionPolicy Bypass -File server\scripts\start-remote.ps1
+# 4. 手机打开打印的 PHONE URL -> 登录 -> Safari 添加到主屏幕</code></pre>
+
+  <ol class="steps">
+    <li>iPhone/iPad：Safari 打开 PHONE URL → 输入口令 → 分享 → 添加到主屏幕。</li>
+    <li>安卓：安装 <code>dist/android/dsh-mobile-app-release.apk</code>，地址填 <code>https://你的地址/mobile</code>。</li>
+    <li>固定地址推荐花生壳免费版，教程见仓库 <code>docs/oray-guide.md</code>。</li>
+  </ol>
+
+  <p><a href="https://github.com/rs-lxy/dsh-remote-123">查看 GitHub 仓库与完整文档 →</a></p>
+  <p class="footer">社区项目，与 DeepSeek AI 无隶属关系 · MIT License · 参考开源项目见 README</p>
+</div>
+</body>
+</html>
