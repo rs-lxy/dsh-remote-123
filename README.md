@@ -84,7 +84,8 @@ node server/gateway.mjs
 | 通道 | 启动方式 | 地址 | 说明 |
 |---|---|---|---|
 | **花生壳免费版（国内固定，推荐）** | 见 [docs/oray-guide.md](docs/oray-guide.md) | 固定 `*.vicp.fun` 等 | 需手机号注册 + 实名，HTTPS 自动证书 |
-| **localhost.run（免注册）** | `start-remote.ps1` | 免费随机 `*.lhr.life` | 零账号快速体验，重连会换地址 |
+| **Pinggy（免注册，当前免费首选）** | `start-pinggy.ps1` | 免费随机 `*.pinggy.net/link`，约 60 分钟一换 | 手机网络实测可用；固定 `/go/` 入口自动跳最新 |
+| **localhost.run（免注册）** | `start-remote.ps1` | 免费随机 `*.lhr.life` | 零账号快速体验，部分手机线路不通 |
 | **NATAPP VIP_1（9 元/月）** | 见 [docs/natapp-guide.md](docs/natapp-guide.md) | 固定 `*.natapp.cn` + HTTPS | 最便宜的永久固定地址，推荐长期使用 |
 | Cloudflare 快速隧道 | `install-cloudflared.ps1` → `start-cloudflare-tunnel.ps1` | 随机 `*.trycloudflare.com` | 部分国内线路被边缘过滤 |
 | Cloudflare 固定域名 | `start-cloudflare-named.ps1 -TunnelName mydsh` | 自有域名固定 | 需域名，最稳 |
@@ -93,7 +94,10 @@ node server/gateway.mjs
 > 网关默认只绑 `127.0.0.1:8082`。公网入口全部由隧道转发，**不要**设置
 > `DSH_REMOTE_BIND=0.0.0.0` 直接暴露网关。
 
-> ⚠️ **免费随机地址会变**：localhost.run / Cloudflare 快速隧道在电脑重启或隧道重连后会
+**固定入口（强烈建议收藏）**：`https://rs-lxy.github.io/dsh-remote-123/go/`
+PC 上的 watchdog 会自动把当前最新可用地址发布到 GitHub，这个链接永远跳到最新地址。
+
+> ⚠️ **免费随机地址会变**：Pinggy（约 60 分钟）、localhost.run / Cloudflare 快速隧道在电脑重启或隧道重连后会
 > 分配新地址。电脑上双击 `server\scripts\show-url.bat` 查看当前地址；永久固定方案
 > （NATAPP 9 元/月、花生壳正式版、cpolar、Cloudflare 自有域名、Tailscale）见
 > [docs/stable-url-options.md](docs/stable-url-options.md)。
@@ -165,6 +169,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File server\scripts\install-autos
 | gzip：`session.history` 4.45MB → 0.35MB，27.6s → 1.4s | ✅ |
 | 花生壳 HTTPS 固定域名全链路（登录 / 页面 / API / WSS） | ✅ |
 
+## 方案调研与参考
+
+完整的前沿方案调研（GitHub / B 站 / V2EX / dev.to）见 [docs/remote-methods-survey.md](docs/remote-methods-survey.md)。
+
 ## 参考了什么 / 自己做了什么
 
 ### 参考与借用
@@ -175,6 +183,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File server\scripts\install-autos
 | [hongshuxifan321/dsh-mobile-app](https://github.com/hongshuxifan321/dsh-mobile-app) | 安卓 WebView 壳 + Basic Auth 代理 + loopback Host 改写 + 大 JSON gzip 思路；其 APK 收录于 `dist/android` |
 | [joyfish666/deepseek-harness-remote](https://github.com/joyfish666/deepseek-harness-remote) | mobile-fit（MIT）、boot manifest 重排、WS cookie/token 技术；其 APK 收录于 `dist/android` |
 | [juanlian583/dsh-mobile-adapt](https://github.com/juanlian583/dsh-mobile-adapt) | 当前默认移动端 UI 插件（MIT） |
+| [shaobeichen/dsh-pocket](https://github.com/shaobeichen/dsh-pocket) | 调研参考：插件内置二维码、cloudflared 公网二维码、URL 即钥匙 |
+| [@xiaosenho/dsh-plugin-remote-access](https://www.npmjs.com/package/@xiaosenho/dsh-plugin-remote-access) | 调研参考：frpc 隧道 + token 换 Cookie 认证 |
+| [hchao3335-maker/dsh-lan-gate](https://github.com/hchao3335-maker/dsh-lan-gate) | 调研参考：首次访问设备批准、局域网门禁 |
 | [citrusli2026/dsh-mobile-shell](https://github.com/citrusli2026/dsh-mobile-shell) | 调研参考：Capacitor 双端壳 + token 网关安全模型 |
 | [icodesign/orbis](https://github.com/icodesign/orbis) | 调研参考：设备配对 + E2E 加密远程控制 |
 | [stars2022/Dsh-macUI](https://github.com/stars2022/Dsh-macUI) | 调研参考：原生 SwiftUI iOS 客户端与加密中继 |

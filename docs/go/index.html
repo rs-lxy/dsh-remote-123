@@ -36,7 +36,7 @@
     .then(function(r){ return r.text(); })
     .then(function(t){
       var u = t.trim();
-      var ok = /^https:\/\/[a-z0-9-]+\.lhr\.life$/.test(u);
+      var ok = /^https:\/\/[a-z0-9.-]+\.(?:lhr\.life|run\.pinggy-free\.link|free\.pinggy\.net|serveousercontent\.com|serveo\.net)$/.test(u);
       document.getElementById('url').textContent = u;
       var a = document.getElementById('open');
       a.style.display = 'inline-block';

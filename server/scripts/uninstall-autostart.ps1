@@ -5,6 +5,7 @@ $ErrorActionPreference = 'Continue'
 
 Unregister-ScheduledTask -TaskName 'dsh-remote-gateway' -Confirm:$false -ErrorAction SilentlyContinue
 Unregister-ScheduledTask -TaskName 'dsh-remote-localhostrun' -Confirm:$false -ErrorAction SilentlyContinue
+Unregister-ScheduledTask -TaskName 'dsh-remote-pinggy' -Confirm:$false -ErrorAction SilentlyContinue
 Unregister-ScheduledTask -TaskName 'dsh-remote-serveo' -Confirm:$false -ErrorAction SilentlyContinue
 Unregister-ScheduledTask -TaskName 'dsh-remote-cloudflared' -Confirm:$false -ErrorAction SilentlyContinue
 
@@ -17,6 +18,7 @@ Write-Host 'Autostart tasks removed.'
 
 Stop-GatewayProcesses
 Stop-LocalhostRunTunnel
+Stop-PinggyTunnel
 Stop-ServeoTunnel
 Stop-CloudflaredTunnel
 Write-Host 'Gateway and tunnel processes stopped.'

@@ -219,6 +219,43 @@ function Stop-ServeoTunnel {
         ForEach-Object { try { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue } catch {} }
 }
 
+function Start-PinggyHidden {
+    # Starts the Pinggy anonymous SSH tunnel hidden with watchdog.
+    $script = Join-Path $PSScriptRoot 'run-pinggy-watchdog.ps1'
+    $arg = '-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "{0}"' -f $script
+    $p = Start-Process -FilePath 'powershell.exe' -ArgumentList $arg -WindowStyle Hidden -PassThru
+    return $p
+}
+
+function Test-PinggyRunning {
+    Get-CimInstance Win32_Process -Filter "Name='ssh.exe'" -ErrorAction SilentlyContinue |
+        Where-Object { $_.CommandLine -match 'a\.pinggy\.io' } |
+        Select-Object -First 1 | ForEach-Object { $true }
+}
+
+function Wait-PinggyUrl([int]$timeoutSeconds = 60) {
+    $log = Join-Path (Get-LogDir) 'dsh-remote-pinggy.log'
+    $deadline = (Get-Date).AddSeconds($timeoutSeconds)
+    while ((Get-Date) -lt $deadline) {
+        if (Test-Path $log) {
+            $text = Get-Content $log -Raw -ErrorAction SilentlyContinue
+            $ms = [regex]::Matches($text, 'https://[a-z0-9.-]+\.(?:run\.pinggy-free\.link|free\.pinggy\.net)')
+            if ($ms.Count -gt 0) { return $ms[$ms.Count - 1].Value }
+        }
+        Start-Sleep -Milliseconds 700
+    }
+    return $null
+}
+
+function Stop-PinggyTunnel {
+    Get-CimInstance Win32_Process -Filter "Name='ssh.exe'" -ErrorAction SilentlyContinue |
+        Where-Object { $_.CommandLine -match 'a\.pinggy\.io' } |
+        ForEach-Object { try { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue } catch {} }
+    Get-CimInstance Win32_Process -Filter "Name='powershell.exe'" -ErrorAction SilentlyContinue |
+        Where-Object { $_.CommandLine -match 'run-pinggy-watchdog\.ps1' } |
+        ForEach-Object { try { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue } catch {} }
+}
+
 function Stop-GatewayProcesses {
     $port = Get-GatewayPort
     $conns = Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue

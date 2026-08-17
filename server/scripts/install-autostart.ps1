@@ -5,7 +5,8 @@
 # Pure ASCII (PowerShell 5.1 safe).
 param(
     [switch]$IncludeCloudflare,
-    [switch]$Serveo
+    [switch]$Serveo,
+    [switch]$IncludeLocalhostRun
 )
 
 $ErrorActionPreference = 'Stop'
@@ -13,6 +14,7 @@ $ErrorActionPreference = 'Stop'
 
 $gatewayVbs = Join-Path $PSScriptRoot 'autostart-gateway.vbs'
 $lhrVbs = Join-Path $PSScriptRoot 'autostart-localhostrun.vbs'
+$pinggyVbs = Join-Path $PSScriptRoot 'autostart-pinggy.vbs'
 $serveoVbs = Join-Path $PSScriptRoot 'autostart-serveo.vbs'
 $cfVbs = Join-Path $PSScriptRoot 'autostart-cloudflared.vbs'
 $dshVbs = Join-Path $PSScriptRoot 'autostart-dsh-web.vbs'
@@ -33,11 +35,16 @@ $action = New-ScheduledTaskAction -Execute 'wscript.exe' -Argument ('"{0}"' -f $
 Register-ScheduledTask -TaskName 'dsh-remote-gateway' -Action $action -Trigger $trigger -Settings $settings -Force | Out-Null
 
 if (Get-Ssh) {
-    Write-Host 'Registering dsh-remote-localhostrun...'
+    Write-Host 'Registering dsh-remote-pinggy...'
+    $actionPinggy = New-ScheduledTaskAction -Execute 'wscript.exe' -Argument ('"{0}"' -f $pinggyVbs)
+    Register-ScheduledTask -TaskName 'dsh-remote-pinggy' -Action $actionPinggy -Trigger $trigger -Settings $settings -Force | Out-Null
+} else {
+    Write-Host 'OpenSSH client not found: skipping Pinggy task.' -ForegroundColor Yellow
+}
+if ($IncludeLocalhostRun -and (Get-Ssh)) {
+    Write-Host 'Registering dsh-remote-localhostrun (optional fallback)...'
     $actionLhr = New-ScheduledTaskAction -Execute 'wscript.exe' -Argument ('"{0}"' -f $lhrVbs)
     Register-ScheduledTask -TaskName 'dsh-remote-localhostrun' -Action $actionLhr -Trigger $trigger -Settings $settings -Force | Out-Null
-} else {
-    Write-Host 'OpenSSH client not found: skipping localhost.run task.' -ForegroundColor Yellow
 }
 
 if ($Serveo -and (Get-ServeoKey)) {
@@ -59,7 +66,8 @@ if ($IncludeCloudflare -and (Get-Cloudflared)) {
 Write-Host 'Starting the tasks now...'
 schtasks /run /tn dsh-web | Out-Null
 schtasks /run /tn dsh-remote-gateway | Out-Null
-if (Get-Ssh) { schtasks /run /tn dsh-remote-localhostrun | Out-Null }
+if (Get-Ssh) { schtasks /run /tn dsh-remote-pinggy | Out-Null }
+if ($IncludeLocalhostRun -and (Get-Ssh)) { schtasks /run /tn dsh-remote-localhostrun | Out-Null }
 if ($Serveo -and (Get-ServeoKey)) { schtasks /run /tn dsh-remote-serveo | Out-Null }
 if ($IncludeCloudflare -and (Get-Cloudflared)) { schtasks /run /tn dsh-remote-cloudflared | Out-Null }
 

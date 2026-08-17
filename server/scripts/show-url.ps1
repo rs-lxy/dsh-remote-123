@@ -19,8 +19,13 @@ if (Test-Path $fixedFile) {
 $lhr = Wait-LocalhostRunUrl 2
 if ($lhr) {
     Write-Host ('  PHONE URL (localhost.run): ' + $lhr) -ForegroundColor Cyan
-} else {
-    Write-Host '  localhost.run tunnel not running (fixed URL is primary).' -ForegroundColor Yellow
+}
+$pinggy = Wait-PinggyUrl 2
+if ($pinggy) {
+    Write-Host ('  PHONE URL (pinggy)       : ' + $pinggy) -ForegroundColor Cyan
+}
+if (-not $lhr -and -not $pinggy) {
+    Write-Host '  No public tunnel running. Start one with start-pinggy.ps1.' -ForegroundColor Yellow
 }
 
 $cfRunning = Get-CimInstance Win32_Process -Filter "Name='cloudflared.exe'" -ErrorAction SilentlyContinue |

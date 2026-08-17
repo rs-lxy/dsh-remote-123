@@ -9,6 +9,7 @@ $ErrorActionPreference = 'Continue'
 
 Stop-GatewayProcesses
 Stop-LocalhostRunTunnel
+Stop-PinggyTunnel
 Stop-ServeoTunnel
 if ($CloudflareToo) { Stop-CloudflaredTunnel }
 Write-Host 'dsh-remote gateway and tunnels stopped (dsh web untouched).'

@@ -7,6 +7,7 @@
 | localhost.run 匿名隧道 | `https://xxxx.lhr.life` | 免费 | **会**：电脑重启 / 网络重连 / 隧道重建都会换 |
 | Cloudflare 快速隧道 | `https://xxxx.trycloudflare.com` | 免费 | **会**：每次重启都换，部分国内线路还被过滤 |
 | Serveo 匿名隧道 | 随机域名 | 免费 | **会**：重连就换 |
+| **Pinggy 匿名 SSH（当前免费首选）** | `*.pinggy.net` / `*.run.pinggy-free.link` | 免费 | **会**：约 60 分钟一换，固定 `/go/` 入口自动跳最新 |
 | NATAPP VIP_1（推荐） | `https://你的名字.natapp.cn` | 9 元/月 | **不会** |
 | 花生壳正式版 HTTPS 映射 | `https://xxx.vicp.fun` 等 | 付费 | **不会** |
 | cpolar 基础版 | 保留二级域名 | 99 元/年 | **不会** |
@@ -23,6 +24,10 @@
 - 手机重新打开新地址并重新「添加到主屏幕」一次。
 
 ## 二、免费方案下，地址变了怎么办
+
+当前默认通道是 Pinggy（手机网络实测可用）：电脑端 watchdog 会自动重连并把最新地址发布到 GitHub，
+手机只需打开固定入口 `https://rs-lxy.github.io/dsh-remote-123/go/`，它会自动跳到最新地址。
+
 
 1. 电脑上双击：`dsh-remote\server\scripts\show-url.bat`
 2. 找到 `PHONE URL (localhost.run)` 那一行；
