@@ -31,14 +31,22 @@
     a.style.display = 'inline-block';
     a.href = document.getElementById('url').textContent;
   }
-  fetch(GIST, { cache: 'no-store' })
+  var cb = GIST + '?cb=' + Date.now();
+  fetch(cb, { cache: 'no-store', mode: 'cors' })
     .then(function(r){ return r.text(); })
     .then(function(t){
       var u = t.trim();
       var ok = /^https:\/\/[a-z0-9-]+\.lhr\.life$/.test(u);
       document.getElementById('url').textContent = u;
-      if (ok) { status.textContent = '正在跳转：' + u; location.replace(u); }
-      else fail('没有找到有效地址，请重试。');
+      var a = document.getElementById('open');
+      a.style.display = 'inline-block';
+      a.href = u;
+      if (ok) {
+        status.textContent = '最新地址：' + u + '，正在打开…';
+        setTimeout(function(){ location.replace(u); }, 600);
+      } else {
+        fail('没有找到有效地址，请点下面的按钮重试。');
+      }
     })
     .catch(function(){ fail('读取失败：请检查网络后重试。'); });
 </script>
