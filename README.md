@@ -85,12 +85,18 @@ node server/gateway.mjs
 |---|---|---|---|
 | **花生壳免费版（国内固定，推荐）** | 见 [docs/oray-guide.md](docs/oray-guide.md) | 固定 `*.vicp.fun` 等 | 需手机号注册 + 实名，HTTPS 自动证书 |
 | **localhost.run（免注册）** | `start-remote.ps1` | 免费随机 `*.lhr.life` | 零账号快速体验，重连会换地址 |
+| **NATAPP VIP_1（9 元/月）** | 见 [docs/natapp-guide.md](docs/natapp-guide.md) | 固定 `*.natapp.cn` + HTTPS | 最便宜的永久固定地址，推荐长期使用 |
 | Cloudflare 快速隧道 | `install-cloudflared.ps1` → `start-cloudflare-tunnel.ps1` | 随机 `*.trycloudflare.com` | 部分国内线路被边缘过滤 |
 | Cloudflare 固定域名 | `start-cloudflare-named.ps1 -TunnelName mydsh` | 自有域名固定 | 需域名，最稳 |
 | Tailscale | `start-tailscale.ps1` | 固定 `*.ts.net` | 手机需装 Tailscale App |
 
 > 网关默认只绑 `127.0.0.1:8082`。公网入口全部由隧道转发，**不要**设置
 > `DSH_REMOTE_BIND=0.0.0.0` 直接暴露网关。
+
+> ⚠️ **免费随机地址会变**：localhost.run / Cloudflare 快速隧道在电脑重启或隧道重连后会
+> 分配新地址。电脑上双击 `server\scripts\show-url.bat` 查看当前地址；永久固定方案
+> （NATAPP 9 元/月、花生壳正式版、cpolar、Cloudflare 自有域名、Tailscale）见
+> [docs/stable-url-options.md](docs/stable-url-options.md)。
 
 ### 3. 安装移动端适配（推荐）
 
@@ -124,6 +130,15 @@ powershell -NoProfile -ExecutionPolicy Bypass -File server\scripts\install-autos
 | `DSH_REMOTE_TOKEN` | 读认证文件/自动生成 | 登录口令 |
 | `DSH_REMOTE_USER` | `dsh` | Basic Auth 用户名 |
 | `DSH_REMOTE_AUTH_FILE` | `~/.dsh/dsh-remote.auth` | 认证文件路径 |
+
+## 公网部署红线（务必遵守）
+
+- **绝不**把 dsh web（`127.0.0.1:3080`）直接映射到公网，也不要给 dsh 配置
+  `--host 0.0.0.0`——那会把能执行命令/读写文件的接口直接暴露；
+- 公网隧道（花生壳 / NATAPP / localhost.run / Cloudflare / Tailscale）只能指向
+  **`127.0.0.1:8082` 登录网关**；
+- 网关自身默认也只绑 `127.0.0.1`，不要设置 `DSH_REMOTE_BIND=0.0.0.0`；
+- 本项目的安全边界是：**公网 → HTTPS 隧道 → 网关口令认证 → 回环 dsh**。
 
 ## 安全说明
 

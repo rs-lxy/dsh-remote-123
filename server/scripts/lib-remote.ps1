@@ -156,18 +156,20 @@ function Wait-LocalhostRunUrl([int]$timeoutSeconds = 45) {
     $urlFile = Join-Path (Get-DshHome) 'dsh-remote-url.txt'
     $deadline = (Get-Date).AddSeconds($timeoutSeconds)
     while ((Get-Date) -lt $deadline) {
-        if (Test-Path $urlFile) {
-            $saved = (Get-Content $urlFile -Raw -ErrorAction SilentlyContinue).Trim()
-            if ($saved -match '^https://[a-z0-9-]+\.lhr\.life$') { return $saved }
-        }
         if (Test-Path $log) {
             $text = Get-Content $log -Raw -ErrorAction SilentlyContinue
             $ms = [regex]::Matches($text, 'https://[a-z0-9-]+\.lhr\.life')
             if ($ms.Count -gt 0) {
                 # The log keeps history; only the LAST line belongs to the
                 # currently forwarded tunnel.
-                return $ms[$ms.Count - 1].Value
+                $latest = $ms[$ms.Count - 1].Value
+                Set-Content $urlFile $latest -Encoding ASCII
+                return $latest
             }
+        }
+        if (Test-Path $urlFile) {
+            $saved = (Get-Content $urlFile -Raw -ErrorAction SilentlyContinue).Trim()
+            if ($saved -match '^https://[a-z0-9-]+\.lhr\.life$') { return $saved }
         }
         Start-Sleep -Milliseconds 700
     }
