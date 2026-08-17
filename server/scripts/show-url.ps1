@@ -6,6 +6,7 @@ $ErrorActionPreference = 'Continue'
 
 Write-Host ''
 Write-Host '===== DSH Remote current addresses ====='
+Write-Host '  FIXED GO LINK            : https://rs-lxy.github.io/dsh-remote-123/go/' -ForegroundColor Green
 
 $fixedFile = Join-Path (Get-DshHome) 'dsh-remote-fixed-url.txt'
 if (Test-Path $fixedFile) {
@@ -22,11 +23,15 @@ if ($lhr) {
     Write-Host '  localhost.run tunnel not running (fixed URL is primary).' -ForegroundColor Yellow
 }
 
-$cfLog = Join-Path (Get-LogDir) 'dsh-remote-cloudflared.err.log'
-if (Test-Path $cfLog) {
-    $cfText = Get-Content $cfLog -Raw -ErrorAction SilentlyContinue
-    if ($cfText -match 'https://(?!api\.)[a-z0-9-]+\.trycloudflare\.com') {
-        Write-Host ('  PHONE URL (cloudflared)  : ' + $Matches[0])
+$cfRunning = Get-CimInstance Win32_Process -Filter "Name='cloudflared.exe'" -ErrorAction SilentlyContinue |
+    Where-Object { $_.CommandLine -match 'tunnel\s+--url' } | Select-Object -First 1
+if ($cfRunning) {
+    $cfLog = Join-Path (Get-LogDir) 'dsh-remote-cloudflared.err.log'
+    if (Test-Path $cfLog) {
+        $cfText = Get-Content $cfLog -Raw -ErrorAction SilentlyContinue
+        if ($cfText -match 'https://(?!api\.)[a-z0-9-]+\.trycloudflare\.com') {
+            Write-Host ('  PHONE URL (cloudflared)  : ' + $Matches[0])
+        }
     }
 }
 
